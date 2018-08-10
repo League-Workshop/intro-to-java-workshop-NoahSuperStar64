@@ -28,47 +28,60 @@ public class DragonFight {
 		// 8. Ask the player in a pop-up if they want to attack the dragon with a yell or a kick
 	String attack =	JOptionPane.showInputDialog("Will you spark or bash?");
 		// 9. If they typed in "yell":
-	
+	int stun = new Random().nextInt(2);
 	if(attack.equalsIgnoreCase("spark")) {
 		
 			//-- Find a random number between 0 and 10 and store it in dragonDamage
-			 bossAttack = new Random().nextInt(11);
+			 bossAttack = new Random().nextInt(11)+10;
 			//-- Subtract that number from the dragon's health variable 
 		bossHp-=bossAttack;
 		}
 		// 10. If they typed in "kick":
 	else if(attack.equalsIgnoreCase("bash")) {
 			//-- Find a random number between 0 and 25 and store it in dragonDamage
-			bossAttack = new Random().nextInt(26);
+			bossAttack = new Random().nextInt(21)+10;
 			//-- Subtract that number from the dragon's health variable
 			bossHp-=bossAttack;
 			
 	}
-		// 11.  Find a random number between 0 and 35 and store it in playerDamage
-		playerAttack = new Random().nextInt(36);
-		// 12. Subtract this number from the player's health
-		playerHp-=playerAttack;
+		
 		
 		JOptionPane.showMessageDialog(null, "You attack! "+bossAttack+" damage!");
 		
 		
 		// 13. If the user's health is less than or equal to 0
+		
+		// 14. Else if the dragon's health is less than or equal to 0
+		 if(bossHp<0) {
+			//-- Tell the user that the dragon is dead and they took a ton of gold!
+		JOptionPane.showMessageDialog(null, "YOU WIN! You got 300 gold and 500 exp!");	
+		}
+		if(attack.equalsIgnoreCase("bash")||stun==1) {
+		JOptionPane.showMessageDialog(null, "Dragonite attacks! "+playerAttack+" damage!");
+		// 11.  Find a random number between 0 and 35 and store it in playerDamage
+					playerAttack = new Random().nextInt(36)+10;
+					// 12. Subtract this number from the player's health
+					playerHp-=playerAttack;
+		}
+		else if(attack.equalsIgnoreCase("spark")&&stun==0) {
+			JOptionPane.showMessageDialog(null, "Dragonite is unable to move!");
+			
+		}
 		if(playerHp<0) {
 			//-- Tell the user that they lost
 			JOptionPane.showMessageDialog(null, "You got hurt and collapsed...");
 		}
-		// 14. Else if the dragon's health is less than or equal to 0
-		else if(bossHp<0) {
-			//-- Tell the user that the dragon is dead and they took a ton of gold!
-		JOptionPane.showMessageDialog(null, "YOU WIN! You got 300 gold and 500 exp!");	
-		}
-		JOptionPane.showMessageDialog(null, "Dragonite attacks! "+playerAttack+" damage!");
-	   //  15.  Else
+		
+		
+		//  15.  Else
 		else {
 			//-- Pop up a message that tells the their current health and the dragon's currently health (Bonus: Also display the amount of health that was lost for each player this round)
-		
 			JOptionPane.showMessageDialog(null, "Your hp:"+playerHp+"  Boss hp:"+bossHp);
 		}
+		System.out.println("You have "+playerHp+" Hp.");
+		System.out.println("You take "+playerAttack+" damage!");
+		
+		System.out.println(bossHp);
 		}
 		}
 }
